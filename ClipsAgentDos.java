@@ -24,10 +24,25 @@ public class ClipsAgentDos extends Agent {
 
     public void action() {
         try{
-        clips.eval("(clear)");
-        clips.load("C:/jade/classe/clips/market/load-templates.clp");
-        clips.load("C:/jade/classe/clips/market/load-facts.clp");
-        clips.load("C:/jade/classe/clips/market/load-rules.clp");
+          /*Market
+          clips.load("C:/Program Files/CLIPSJNI/clips/market/templates.clp");
+          clips.load("C:/Program Files/CLIPSJNI/clips/market/facts.clp");
+          clips.load("C:/Program Files/CLIPSJNI/clips/market/rules.clp");
+
+          Person
+          clips.load("C:/Program Files/CLIPSJNI/clips/persons/load-persons.clp");
+          clips.load("C:/Program Files/CLIPSJNI/clips/persons/load-persons-rules.clp");
+
+          Prodcust
+           clips.load("C:/Program Files/CLIPSJNI/clips/prodcust/load-prod-cust.clp");
+          clips.load("C:/Program Files/CLIPSJNI/clips/prodcust/load-prodcust-rules.clp");
+
+          */
+
+          clips.build("(deftemplate product (slot part-number) (multislot name) (slot category) (slot price))");
+          clips.build("(deffacts products (product (part-number 1234) (name USB Memory) (category storage) (price 9.99)) (product (name Amplifier) (category electronics) (part-number 2341) (price 399.99)) (product (name Speakers) (category electronics) (part-number 23241) (price 19.99)) (product (name iPhone 7) (category smartphone) (part-number 3412) (price 99.99)) (product (name Samsung Edge 7) (category smartphone) (part-number 34412) (price 88.99)) )");
+          clips.build("(defrule my-rule11 (product (name ?n) (price 9.99)) => (printout  t \"Customer name found:\"  ?n crlf ))");
+          clips.reset();
         
         }catch (Exception e){}
 
@@ -52,10 +67,11 @@ public class ClipsAgentDos extends Agent {
 
     public void action() {
         try{
-         
-         clips.eval("(reset)");
-         clips.eval("(facts)");
-         clips.run();
+         //clips.eval("(reset)");
+         clips.eval("(facts)"); 
+          clips.eval("(rules)");
+
+          clips.run();
         }catch(Exception e){}
        askDone = true;
         
